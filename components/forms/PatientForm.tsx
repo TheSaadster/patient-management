@@ -9,12 +9,12 @@ import {
   Form,
 } from "@/components/ui/form"
 import CustomFormField from "../CustomFormField"
+import SubmitButton from "../SubmitButton"
+import { useState } from "react"
+import { UserFormValidation } from "@/lib/validation"
+import { createUserFeedbackEnvelope } from "@sentry/nextjs"
 
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-})
+
 
 export enum FormFieldType {
   INPUT = 'input',
@@ -27,16 +27,31 @@ export enum FormFieldType {
 }
 
 const PatientForm = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof UserFormValidation>>({
+    resolver: zodResolver(UserFormValidation),
     defaultValues: {
-      username: "",
+      name: "",
+      email: "",
+      phone: ""
     },
   })
+  const [isLoading, setIsLoading] = useState(false)
+  async function onSubmit({ name, email, phone }: z.infer<typeof UserFormValidation>) {
+    setIsLoading(true)
+    try {
+      const userData = {
+        name,
+        email,
+        phone
+      } 
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+    
+      } catch (error) {
+      console.log(error)
+    }
   }
+
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 flex-1">
@@ -75,7 +90,11 @@ const PatientForm = () => {
           placeholder="(555) 123 4567"
         />
 
-        <Button type="submit">Submit</Button>
+        <SubmitButton
+          isLoading={isLoading}>
+          Get Started
+        </SubmitButton>
+
       </form>
     </Form>
   )
