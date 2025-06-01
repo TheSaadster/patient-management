@@ -13,6 +13,8 @@ import SubmitButton from "../SubmitButton"
 import { useState } from "react"
 import { UserFormValidation } from "@/lib/validation"
 import { createUserFeedbackEnvelope } from "@sentry/nextjs"
+import { useRouter } from "next/navigation"
+import { createUser } from "@/lib/actions/patient.actions"
 
 
 
@@ -27,6 +29,7 @@ export enum FormFieldType {
 }
 
 const PatientForm = () => {
+  const router = useRouter()
   const form = useForm<z.infer<typeof UserFormValidation>>({
     resolver: zodResolver(UserFormValidation),
     defaultValues: {
@@ -45,7 +48,11 @@ const PatientForm = () => {
         phone
       } 
 
-    
+      const user = await createUser(userData)
+
+
+      if(user) router.push(`/patients/${user.$id}/register`)
+
       } catch (error) {
       console.log(error)
     }

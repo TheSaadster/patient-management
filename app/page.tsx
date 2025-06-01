@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex h-screen max-h-screen">
+    <div className="flex h-screen max-h-screen overflow-hidden">
 
       {/* TODO: OTP Verification | PasskeyModal */}
       <section className="remove-scrollbar container my-auto">
@@ -23,7 +23,7 @@ export default function Home() {
 
 
 
-          <div className="text-14-regular mt-20 flex justify-between">
+          <div className="text-14-regular mt-14 flex justify-between">
             <p className="justify-items-end text-dark-600 xl:text-left">
               © 2025 CarePulse
             </p>
