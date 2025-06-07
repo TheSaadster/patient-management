@@ -15,6 +15,7 @@ import { UserFormValidation } from "@/lib/validation"
 import { createUserFeedbackEnvelope } from "@sentry/nextjs"
 import { useRouter } from "next/navigation"
 import { createUser } from "@/lib/actions/patient.actions"
+import "react-phone-number-input/style.css";
 
 
 
