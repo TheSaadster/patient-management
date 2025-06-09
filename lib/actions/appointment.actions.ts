@@ -76,7 +76,7 @@ export const getRecentAppointmentList = async () => {
           case "pending":
             acc.pendingCount++;
             break;
-          case "cancelled":
+          case "canceled":
             acc.cancelledCount++;
             break;
         }
@@ -157,7 +157,7 @@ export const getAppointment = async (appointmentId: string) => {
     return parseStringify(appointment);
   } catch (error) {
     console.error(
-      "An error occurred while retrieving the appointment",
+      "An error occurred while retrieving the existing patient:",
       error
     );
   }
